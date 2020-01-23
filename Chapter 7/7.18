@@ -1,0 +1,109 @@
+import java.security.SecureRandom;
+
+public class Craps {
+
+	private static final SecureRandom randomNumbers = new SecureRandom();
+	private enum Status {CONTINUE, WON, LOST};
+	
+	private static final int SNAKE_EYES = 2;
+	private static final int TREY = 3;
+	private static final int SEVEN = 7;
+	private static final int YO_LEVEN = 11;
+	private static final int BOX_CARS = 12;
+	
+	public static void main(String[] args) {
+		
+		Status gameStatus;
+		int[][] frequency = new int[2][21];
+		int total = 0;
+		int[] lw = new int[2];
+		int games = 10000000
+		;
+		
+		for (int i = 1; i <=games; i++) {
+		int myPoint = 0;
+		int roll = 1;
+		
+		int sumOfDice = rollDice();
+		
+		switch (sumOfDice) {
+		case SEVEN:
+		case YO_LEVEN:
+			gameStatus = Status.WON;
+			break;
+		case SNAKE_EYES:
+		case TREY:
+		case BOX_CARS:
+			gameStatus = Status.LOST;
+		default:
+			gameStatus = Status.CONTINUE;
+			myPoint = sumOfDice;
+			//System.out.printf("Point is %d%n", myPoint);
+		}
+
+		
+		
+		
+		while(gameStatus == Status.CONTINUE)
+		{
+			sumOfDice = rollDice();
+			roll++;
+			if(sumOfDice == myPoint)
+				gameStatus = Status.WON;
+			else
+				if(sumOfDice == SEVEN)
+					gameStatus = Status.LOST;
+		}
+		
+		if (gameStatus == Status.WON)
+			{
+			if(roll<=20)
+				frequency[0][roll]++;
+			else
+				frequency[0][0]++;
+			lw[0]++;
+			//System.out.println("Player wins");
+			}
+		else
+			{
+			if(roll<=20)
+				frequency[1][roll]++;
+			else
+				frequency[1][0]++;
+			lw[1]++;
+			//System.out.println("Player wins");
+			
+			//System.out.println("Player loses");
+			}
+	
+		total+=roll;
+		}
+	
+		double average = (double)total/games;
+		System.out.printf(" Average roll is: %.2f%n ", average);
+		System.out.printf("Games won: %d  Games lost: %d%n%n", lw[0],lw[1]);
+		System.out.printf("%20s%20s%n", "WON", "LOST" );
+		
+		for (int i = 0; i<frequency[0].length;i++)
+		{
+			System.out.printf("%2d%19d%20d%n",i,frequency[0][i],frequency[1][i]);
+		}
+	
+	    double chance = (double)lw[0]/games*100;
+		System.out.printf("%nChances of wining: %.2f%nChances of losing: %.2f", chance, 100-chance);
+	}
+
+	
+	public static int rollDice() {
+		
+		int die1 = 1 + randomNumbers.nextInt(6);
+		int die2 = 1 + randomNumbers.nextInt(6);
+		
+		int sum = die1 + die2;
+		
+		//System.out.printf("Player rolled %d + %d = %d%n", die1, die2, sum);
+		
+		return sum;
+	}
+}
+

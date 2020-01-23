@@ -1,0 +1,184 @@
+import java.util.Scanner;
+import java.security.*;
+public class main{
+	
+	public static int[] currentPosition = new int[3];
+	public static int[][] floor = new int[50][50];
+	public static SecureRandom random = new SecureRandom();
+	
+	public static void main(String[] args) 
+	{
+
+		
+		Scanner scan= new Scanner(System.in);
+		int sentinel = 1;
+		int[][] moves = new int[floor.length+1][2];
+		int i = 0;
+		int pen = 0;
+		int direction = 0;
+		
+		currentPosition[2] = 2;
+		
+		moves[0][0] = 2;
+		moves[floor.length-2][0] = 6;
+		moves[floor.length-1][0] = 9;
+		
+		for(int k = 1 ; k < floor.length-2; k++)			
+			for (int j = 0 ; j < 2 ; j++)
+				moves[k][j] = rand();
+			
+		
+		/*for(int k = 0 ; k < 20; k++)			
+			{
+			for (int j = 0 ; j < 2 ; j++)
+				System.out.print(moves[k][j]);
+			System.out.println();
+			}
+		*/
+	
+		
+		while(sentinel == 1)
+		{
+			switch(moves[i][0])
+			{
+			case 1:
+				pen = 1;
+				break;
+			case 2:
+				pen = 2;
+				break;
+			case 3:
+				sortDirection(moves[i][0]);
+				break;
+			case 4:
+				sortDirection(moves[i][0]);
+				break;
+			case 5:
+				moveForward(pen, moves[i][1]);
+				break;
+			case 6:
+				display();
+				break;
+			case 9:
+				sentinel = 2;
+				break;
+			default:
+				
+				//System.out.println("There is no such function implemented"+" "+moves[i][0]+" "+i);			
+			}
+		if(i == floor.length-1)
+			sentinel = 2;
+			i++;
+		}
+	
+		
+	}
+	
+	public static void sortDirection(int direction)
+	{
+		switch(currentPosition[2])
+		{
+		case 0:
+			if(direction == 3)
+				currentPosition[2] = 1;
+			else
+				currentPosition[2] = 3;
+			break;
+		case 1:
+			if(direction == 3)
+				currentPosition[2] = 2;
+			else
+				currentPosition[2] = 0;
+			break;
+		case 2:
+			if(direction == 3)
+				currentPosition[2] = 3;
+			else
+				currentPosition[2] = 1;
+			break;
+		case 3:
+			if(direction == 3)
+				currentPosition[2] = 0;
+			else
+				currentPosition[2] = 2;
+			break;
+		}
+	}
+	
+	public static void moveForward(int pen, int numberOfMoves)
+	{
+		switch(currentPosition[2])
+		{
+		
+		case 0:
+			for(int i = currentPosition[0]; i >= currentPosition[0]-numberOfMoves; i--)
+				if((i <= floor.length-1) & (i>=0) & (pen == 2) )
+					floor[i][currentPosition[1]] = 1;
+				if(currentPosition[0]-numberOfMoves >= 0)
+					currentPosition[0] -= numberOfMoves;
+				else
+					currentPosition[0] = 0;
+				
+			break;
+			
+		case 1:
+			for(int i = currentPosition[1]; i <=currentPosition[1] + numberOfMoves; i++)
+				if((i <= floor.length-1) & (i>=0) & (pen == 2) )
+				floor[currentPosition[0]][i] = 1;
+			if(currentPosition[1]+numberOfMoves <= floor.length-1)
+				currentPosition[1] += numberOfMoves;
+			else
+				currentPosition[1] = floor.length-1;
+			break;
+						
+		case 2:
+			for(int i = currentPosition[0]; i <= numberOfMoves + currentPosition[0]; i++)
+				if((i <= floor.length-1) & (i>=0) & (pen == 2) )
+				floor[i][currentPosition[1]] = 1;
+			if(currentPosition[0]+numberOfMoves <= floor.length-1)
+				currentPosition[0] += numberOfMoves;
+			else
+				currentPosition[0] = floor.length-1;
+			break;
+			
+		case 3:
+			for(int i = currentPosition[1]; i >= currentPosition[1] - numberOfMoves ; i--)
+				if((i <= floor.length-1) & (i>=0) & (pen == 2) )
+				floor[currentPosition[0]][i] = 1;
+			if(currentPosition[1]-numberOfMoves >= 0)
+				currentPosition[1] -= numberOfMoves;
+			else
+				currentPosition[1] = 0;
+			break;
+		}
+	}
+	
+	public static void display()
+	{
+		for(int i = 0 ; i < floor.length; i++)
+		{
+			
+			for (int j = 0 ; j < floor[0].length ; j++)
+				if (floor[i][j] == 1)
+					System.out.print("+");
+				else
+					System.out.print("-");
+			System.out.println();		
+		}
+	System.out.println();
+	System.out.println();
+	}
+
+	public static int rand()
+	{
+		int sentinel = 1;
+		int a = 0;
+		while (sentinel == 1) {
+			 a = random.nextInt(10);
+			 if((a!=0)&(a!=7)&(a!=8)&(a!=9)&(a!=2)&(a!=1)&(a!=6))
+				 sentinel = 2;
+			}
+	return a;
+	}
+
+}

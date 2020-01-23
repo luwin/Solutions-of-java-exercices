@@ -1,0 +1,42 @@
+import java.util.Scanner;
+public class main {
+
+	public static void main(String[] args) {
+
+	Scanner scan= new Scanner(System.in);
+	
+	int digit=0;
+	int sentinel=1;
+	int ten=10;
+	
+	System.out.print("Introduce un número en binario: ");
+	int bin= scan.nextInt();
+
+	while(sentinel==1)
+	{
+		if(bin/ten==0)
+			sentinel=2;
+		digit++;
+		ten*=10;
+	}
+	
+	int deci=0;
+	int dos=1;
+	int count=1;
+	ten=1;
+	
+	while(count<=digit)
+	{
+		//System.out.println(bin/ten);
+		deci=deci+dos*((bin/ten)%5);
+		dos*=2;
+		ten*=10;
+		count++;
+	}
+	
+	System.out.print(bin+"----->"+deci);
+			
+	}
+
+}
+

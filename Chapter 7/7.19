@@ -1,0 +1,114 @@
+
+public static void main(String[] args) {
+	
+	Scanner scan= new Scanner(System.in);
+	
+	boolean[] seats = new boolean[11];
+	
+	for (int i = 1; i <= 10; i++)
+	{
+		
+		display(seats);
+		
+		System.out.print("Please type 1 for first class or type 2 for economy class: ");
+		int type = scan.nextInt();
+		
+		boolean fs = true;
+		boolean es = true;
+		
+		for (int j = 1; j <= 5; j++)
+			if(seats[j] == false)
+				fs = false;
+		for (int j = 6; j <= 10; j++)
+			if(seats[j] == false)
+				es = false;
+		
+		if( (type == 1)&(fs == true) )
+		{
+			System.out.println("First class us full, ¿is aceptable to fly in economic class? 1.Yes 2.No");
+			int decision = scan.nextInt();
+			
+			if(decision == 1)
+				type = 2;
+			else
+				{
+				System.out.println("Next flight leaves in 3 hours, fuck you");				
+				break;
+				}
+		}
+		
+		if( (type == 2)&(es == true) )
+		{
+			System.out.println("Economy class us full, ¿is aceptable to fly in first class? 1.Yes 2.No");
+			int decision = scan.nextInt();
+			
+			if(decision == 1)
+				type = 1;
+			else
+				{
+				System.out.println("Next fly leaves in 3 hours, fuck you");		
+				break;
+				}
+		}
+		
+		
+		if(type == 1)
+		{
+			int num = assignSeat(seats, type);
+			System.out.println("You have a seat in the number: "+num);	
+		}
+		else
+		{
+			int num = assignSeat(seats, type);
+			System.out.println("You have a seat in the number: "+num);		
+		}
+	
+		System.out.println("No more seats, fuck you and have a nice day");
+	}
+			
+	}
+	
+	public static int assignSeat(boolean[] seats, int type)
+	{
+	int sentinel = 1;
+	SecureRandom random = new SecureRandom();
+	
+	
+	while (sentinel == 1)
+	{
+		if(type == 1)
+		{
+			int ran = 1 + random.nextInt(5);
+			if (seats[ran] == false)
+			{
+				seats[ran] = true;
+				sentinel = 2;
+				type = ran;
+			}
+		}
+		else
+		{
+			int ran = 6 + random.nextInt(5);
+			if (seats[ran] == false)
+			{
+				seats[ran] = true;
+				sentinel = 2;
+				type = ran;
+			}
+		}
+	
+	}
+		return type;
+			
+	}
+	
+	
+	public static void display(boolean[] seats)
+	{
+		System.out.printf("%s%10s%n%n", "seat","status" );
+		for(int i = 1; i <= 10; i++)
+			System.out.printf("%4d%10b%n", i, seats[i]);	
+	}
+	
+	
+}

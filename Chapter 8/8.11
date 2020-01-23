@@ -1,0 +1,84 @@
+
+	import java.util.Scanner;
+import java.security.*;
+public class main{
+	
+
+	public static void main(String[] args) 
+	{
+	
+		Complex c1 = new Complex(1,1);
+		Complex c2 = new Complex(2,2);
+		
+		Complex c3 = Complex.sum(c1, c2);
+		Complex c4 = Complex.substraction(c1, c2);
+		
+		Complex.print(c3);
+		Complex.print(c4);
+		
+		
+	}
+
+	
+	
+	
+	private static class Complex
+	{
+		private final double realPart;
+		private final double imaginaryPart;
+		
+		
+		public Complex()
+		{
+		 this(0,0);	
+		}
+
+		public Complex(double realPart, double imaginaryPart)
+		{
+			this.realPart = realPart;
+			this.imaginaryPart = imaginaryPart;
+			
+		}
+	
+		public double getReal()
+		{
+			return realPart;
+		}
+	
+		public double getImaginary()
+		{
+			return imaginaryPart;
+		}
+	
+		public static Complex sum(Complex c1, Complex c2)
+		{
+			double r = c1.realPart + c2.realPart;
+			double im = c1.imaginaryPart + c1.imaginaryPart;
+			
+			Complex c = new Complex(r,im);
+			
+			return c;
+								
+		}
+		
+		public static Complex substraction(Complex c1, Complex c2)
+		{
+			double r = c1.realPart - c2.realPart;
+			double im = c1.imaginaryPart - c2.imaginaryPart;
+			
+			Complex c = new Complex(r,im);
+			
+			return c;
+			
+			
+		}
+	
+	
+		public static void print(Complex c)
+		{
+			System.out.println(c.realPart+" + "+c.getImaginary()+"i");
+		}
+	}
+
+
+}

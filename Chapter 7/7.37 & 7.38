@@ -1,0 +1,246 @@
+import java.util.*;
+
+public class sml {
+
+	// Input/output operations:
+	private static final int READ = 10;
+	private static final int WRITE = 11;
+	private static final int NEWLINE = 12;
+	
+	// Load/store operations:
+	private static final int LOAD = 20;
+	private static final int STORE = 21;
+	
+	// Arithmetic operations:
+	private static final int ADD = 30; 
+	private static final int SUBTRACT = 31;
+	private static final int DIVIDE = 32;
+	private static final int MULTIPLY = 33;
+	private static final int REMAINDER = 34;
+	private static final int EXPONENTIAL = 35;
+	
+	// Transfer-of-control operations:
+	private static final int BRANCH = 40;
+	private static final int BRANCHNEG = 41;
+	private static final int BRANCHZERO = 42;
+	private static final int HALT = 43;
+	
+	private static double[] program = new double[1000];
+	private static double accumulator;
+	private static int instructionCounter = 0;
+	private static int operand;
+	private static int operationCode;
+	private static int instructionRegister;
+	private static Scanner scan = new Scanner(System.in);
+	private static int abnormalEnd = 0;
+	
+	
+	
+	public static void main(String[] args) {
+		
+			
+
+            System.out.println("*** Welcome to Simpletron ***");
+            System.out.println("*** Please enter your program one instruction    ***");
+            System.out.println("*** (or data word) at a time. I will display     ***");
+            System.out.println("*** the location number and a question mark (?). ***");
+            System.out.println("*** You then type the word for that location.    ***");
+            System.out.println("*** Type -99999 to stop entering your program.   ***");
+            
+            System.out.println();
+            System.out.println();
+            
+           
+            
+            for (int i = 0; i <= program.length; i++)
+            {
+            	int sentinel = 1;
+            	double instruction = 0;
+            	
+            	while (sentinel == 1)
+               	{
+            		System.out.printf("%02d ? ", i);
+                	instruction = scan.nextDouble();
+                	
+                	if (instruction == -99999)
+                		break;
+                	
+                	if (instruction < -9999 || instruction > 9999 )
+                	{
+                		System.out.println("The range must be (-9999,9999). Try again");
+                	}
+                	else
+                		sentinel = 2;
+            	}
+                 	if((int)instruction == -99999)
+            		break;
+            	program[i] = instruction;
+            }
+              
+            
+            System.out.println();
+            System.out.println();
+            System.out.println("*** Program loading complete ***");
+            System.out.println("*** Program execution begins ***");
+            System.out.println();
+            System.out.println();
+       
+            
+            while( instructionCounter < program.length)
+			{
+    
+				instructionRegister = (int)program[instructionCounter];
+				operationCode = instructionRegister / 100;
+				operand = instructionRegister % 100;			
+				doSomething(operationCode, operand);	
+							
+				if (abnormalEnd == 1)
+					break;
+
+			}
+	
+	
+            computerDump();
+	}
+	
+	
+	public static void doSomething(int operation, int location)
+	{
+		//System.out.println(operation);
+		int a = 0;
+		switch(operation)
+		{
+			case READ:
+				System.out.print("Enter a number: ");
+				int num = scan.nextInt();
+				program[location] = num;
+				break;
+			case WRITE:
+				System.out.println(program[location]);
+				break;
+			case NEWLINE:
+				System.out.println();
+				break;
+				
+				
+			case LOAD:
+				accumulator = program[location];
+				break;
+			case STORE:
+				program[location] = accumulator;
+				break;
+			
+				
+			case ADD:
+				accumulator += program[location];
+				if (accumulator < -9999 || accumulator > 9999)
+				{
+					System.out.println("*** accumulator overflows ***");			
+					System.out.println("*** Simpletron execution abnormally terminates ***");
+					abnormalEnd = 1;
+				}
+				break;
+			case SUBTRACT:
+				accumulator -= program[location];
+				if (accumulator < -9999 || accumulator > 9999)
+				{
+					System.out.println("*** accumulator overflows ***");			
+					System.out.println("*** Simpletron execution abnormally terminates ***");
+					abnormalEnd = 1;
+				}
+				break;
+			case DIVIDE:
+				if (program[location] == 0)
+				{
+					System.out.println("*** Atemp to divide by zero ***");			
+					System.out.println("*** Simpletron execution abnormally terminates ***");
+					abnormalEnd = 1;
+				}
+				else
+					accumulator /= program[location];
+				break;
+			case MULTIPLY:
+				accumulator *= program[location];
+				if (accumulator < -9999 || accumulator > 9999)
+				{
+					System.out.println("*** accumulator overflows ***");			
+					System.out.println("*** Simpletron execution abnormally terminates ***");
+					abnormalEnd = 1;
+				}
+				break;
+			case REMAINDER:
+				accumulator %= program[location];
+				break;
+			case EXPONENTIAL:
+				accumulator = Math.pow(accumulator, program[location]);
+				if (accumulator < -9999 || accumulator > 9999)
+				{
+					System.out.println("*** accumulator overflows ***");			
+					System.out.println("*** Simpletron execution abnormally terminates ***");
+					abnormalEnd = 1;
+				}
+				
+				
+			case BRANCH:
+				instructionCounter = location;
+				a = 1;
+				break;
+			case BRANCHNEG:
+				if(accumulator < 0)
+					{
+					instructionCounter = location;
+					a = 1;
+					}
+				break;
+			case BRANCHZERO:
+				if(accumulator == 0)
+					{
+					instructionCounter = location;
+					a = 1;
+					}
+				break;
+			case HALT:
+				abnormalEnd = 1;
+				System.out.println();
+				System.out.println("*** Simpletron execution ends ***");
+				break;
+			
+			default:
+				System.out.println("*** Atemp to execute a invalid operation ***");			
+				System.out.println("*** Simpletron execution abnormally terminates ***");
+				abnormalEnd = 1;
+		}
+		if (a == 0)
+			instructionCounter++;
+		
+		}
+	
+	
+	public static void computerDump()
+	{
+		 System.out.println();
+         System.out.println();
+         
+		System.out.println("REGISTERS:");
+		System.out.printf("%s%18.2f%n", "accumulator", accumulator );
+		System.out.printf("%s%11d%n", "instructionCounter", instructionCounter );
+		System.out.printf("%s%10d%n", "instructionRegister", instructionRegister );
+		System.out.printf("%s%16d%n", "operationCode", operationCode );
+		System.out.printf("%s%22d%n", "operand", operand );
+		
+		System.out.println("MEMORY:");
+		
+		System.out.printf("%9d%6d%6d%6d%6d%6d%6d%6d%6d%6d%n", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+		int count = 0;
+		for (int i = 0; i < program.length/10; i++) 
+		{
+			System.out.printf("%3d", i*10);
+			for(int j = 0; j < 10; j++)
+				System.out.printf("%6d",(int)program[i*10+j]);
+		System.out.println();
+		}
+			
+		
+		
+	}
+}

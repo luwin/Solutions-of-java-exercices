@@ -1,0 +1,38 @@
+import java.util.Scanner;
+public class main{
+	
+	public static void main(String[] args) {
+	
+	int num=0;;
+	int n=0,n1,n2;
+	int sentinel=1;
+	Scanner scan= new Scanner(System.in);
+	
+	
+	while(sentinel==1) 
+	{
+		System.out.print("Introduce un entero no negativo para calcular su factorial: ");
+	    num=scan.nextInt();
+		if(num<0)
+			System.out.println("He dicho un entero no negativo mentecato, prueba otra vez");
+		else
+			sentinel=2;
+	}
+	
+	sentinel=1;
+	n1=num;
+	n2=num-1;
+	
+	while(sentinel==1)
+	{
+		
+		n=n1*n2;
+		n1=n;
+		n2=n2-1;
+		if(n2==0)
+			sentinel=2;
+	}
+		
+	System.out.print("El facorial de "+num+" Es: "+n);		
+		
+	}

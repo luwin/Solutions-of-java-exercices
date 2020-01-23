@@ -1,0 +1,31 @@
+**7.17**
+
+import java.util.Scanner;
+import java.security.*;
+public class main{
+	
+
+	
+	public static void main(String[] args) {
+	
+	Scanner scan= new Scanner(System.in);
+	SecureRandom random = new SecureRandom();
+	
+	int[] frequency = new int[13];
+	
+	for (int i = 1; i <=36000000; i++)
+	{
+		int num1 = 1 + random.nextInt(6);
+		int num2 = 1 + random.nextInt(6);
+		int total = num1 + num2;
+		++frequency[total];
+		
+	}
+	for (int i =2; i<frequency.length; i++ )
+	{
+		System.out.printf("%2d: %d%n", i,frequency[i]);
+	}
+			
+	}
+		
+}

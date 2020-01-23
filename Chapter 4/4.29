@@ -1,0 +1,42 @@
+public static void main(String[] args) {
+		
+	Scanner scan= new Scanner(System.in);	
+	
+	System.out.print("Introduce el lado del cuadrado:");
+	int lado= scan.nextInt();
+	int counter=1;
+	int counter2=1;
+	
+	while(counter<=lado)
+	{
+		if(counter==1)
+			while(counter2<=lado)
+			{
+				System.out.print("*");	
+				counter2++;
+			}			
+		else if(counter==lado)
+			while(counter2<=lado)
+			{
+				System.out.print("*");
+				counter2++;
+			}			
+		else
+		{
+			System.out.print("*");
+			while(counter2<=lado-2)
+			{
+				System.out.print(" ");
+				counter2++;
+			}			
+			System.out.print("*");
+		}
+		counter2=1;
+		counter++;
+		System.out.println();
+				
+		
+	}	
+
+	}	
+	

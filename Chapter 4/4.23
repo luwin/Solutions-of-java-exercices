@@ -1,0 +1,28 @@
+import java.util.Scanner;
+public class cuatrodosuno {
+
+	public static void main(String[] args) {
+	
+	Scanner scan= new Scanner(System.in);	
+	int counter=1;
+	int largest1=1;
+	int largest2=1;
+	
+	while(counter<=10)
+	{
+		System.out.print("Introduce un número entero: ");
+		int number= scan.nextInt();
+		
+		if(number>largest1)
+		{
+			largest2=largest1;
+			largest1=number;
+		}
+			
+		counter++;		
+	}
+    
+	System.out.println("El número más grande es:"+largest1+"El segundo más grande es:"+largest2);
+		
+	}	
+	

@@ -1,0 +1,44 @@
+import java.util.Scanner;
+public class cuatrodosuno {
+
+	public static void main(String[] args) {
+	
+	Scanner scan= new Scanner(System.in);	
+	
+	int sentinel=1;
+	int pal;
+
+	while(sentinel==1)
+	{
+		System.out.print("Introduce un palindromo de 5 digitos: ");
+		pal=scan.nextInt();
+		//System.out.println(pal/10000);
+		
+		if(pal/10000<10)
+			if(pal/10000>=1)
+			{
+			int num1=pal/1000;
+			int num2=pal/100;
+			
+			if((pal-num1)==num2*100)
+			{
+				System.out.println("Es un palíndromo, enhorabuena.");
+				sentinel=2;
+			}
+			
+			else
+				System.out.println("No es un palíndromo.");			
+			}
+			
+		if(pal/10000>=10)
+			System.out.println("El número no es de 5 digitos, prueba otra vez.");
+		else if(pal/10000==0)
+			System.out.println("El número no es de 5 digitos, prueba otra vez.");
+		
+	}
+				
+
+	}
+
+}
+

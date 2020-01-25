@@ -1,0 +1,325 @@
+import java.util.Scanner;
+import java.security.*;
+
+public class main{
+	
+
+	public static void main(String[] args) 
+	{
+		
+		HugeInteger a = new HugeInteger();
+		HugeInteger b = new HugeInteger();
+		HugeInteger c = new HugeInteger();
+		
+		a.hugeInteger[39] = 9;
+		a.hugeInteger[38] = 9;
+		a.hugeInteger[37] = 9;
+		
+		b.hugeInteger[39] = 1;
+		b.hugeInteger[38] = 2;
+		b.hugeInteger[37] = 4;
+		b.hugeInteger[36] = 4;
+		b.hugeInteger[35] = 4;
+		
+		HugeInteger.print(a);
+		HugeInteger.print(b);
+		
+		c = HugeInteger.sum(a, b);
+		HugeInteger.print(c);
+		
+		System.out.println(HugeInteger.isEqual(a, b));
+		c = HugeInteger.multiplication(a, b);
+		HugeInteger.print(c);
+		
+	}
+
+	
+	
+	
+	private static class HugeInteger
+	{
+		private int[] hugeInteger;
+		
+		public HugeInteger(String a)
+		{
+			this.hugeInteger = new int[40];
+			
+			for (int i = 0; i < a.length(); i++)
+				this.hugeInteger[i] = a.charAt(i);
+			
+		}
+
+		public HugeInteger()
+		{
+		
+			this.hugeInteger = new int[40];
+			
+			for (int i = 0; i < hugeInteger.length; i++)
+				this.hugeInteger[i] = 0;
+		}
+		
+		
+		
+		
+		public void parse(String a)
+		{
+			for (int i = 0; i < a.length(); i++)
+				this.hugeInteger[i] = a.charAt(i);
+			
+		}
+
+	
+		public static boolean isNotEqual(HugeInteger a, HugeInteger b)
+		{
+			boolean c = false;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] != b.hugeInteger[i])
+					return true;
+			
+			return c;
+		}
+	
+		public static boolean isEqual(HugeInteger a, HugeInteger b)
+		{
+			boolean c = true;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] != b.hugeInteger[i])
+					return false;
+			
+			return c;
+		}
+	
+	
+		public static boolean isGreaterThan(HugeInteger a, HugeInteger b)
+		{
+			boolean c = true;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] < b.hugeInteger[i])
+					return false;
+			
+			if(isEqual(a,b) == true)
+				return false;
+			
+			return c;
+						
+		}
+	
+		
+	
+		public static boolean isLessThan(HugeInteger a, HugeInteger b)
+		{
+			boolean c = true;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] > b.hugeInteger[i])
+					return false;
+
+			if(isEqual(a,b) == true)
+				return false;
+						
+			return c;
+			
+			
+		}
+	
+	
+		public static boolean isGreaterThanOrEqual(HugeInteger a, HugeInteger b)
+		{
+			boolean c = true;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] < b.hugeInteger[i])
+					return false;
+			
+			return c;
+			
+			
+		}
+		
+		
+		public static boolean isLessThanOrEqual(HugeInteger a, HugeInteger b)
+		{
+			boolean c = true;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] > b.hugeInteger[i])
+					return false;
+			
+			return c;
+			
+			
+		}
+	
+	
+		public static boolean isZero(HugeInteger a)
+		{
+			boolean c = true;
+			
+			for (int i = 0; i < a.hugeInteger.length; i++)
+				if(a.hugeInteger[i] != 0 )
+					return false;
+			
+			return c;
+						
+		}
+
+	
+		public static HugeInteger sum(HugeInteger a, HugeInteger b)
+		{
+			HugeInteger c = new HugeInteger();
+			
+			int resto = 0;
+			int in = 0;
+			int in2 = 0;
+			
+			for (int i = a.hugeInteger.length-1; i >=0; i--)
+				{
+				
+				if(a.hugeInteger[i] != 0)
+					in = i;
+				if(b.hugeInteger[i] != 0)
+					in2 = i;
+				
+				}
+			
+			int max = Math.max(in, in2);
+			
+			System.out.println(max);
+			
+			for(int i = a.hugeInteger.length-1; i >= 0; i--)
+			{
+				int d = a.hugeInteger[i] +  b.hugeInteger[i] + resto;
+				
+				if(i >= max)
+					if (d >= 10)
+						c.hugeInteger[i] = d%10;					
+					else					
+						c.hugeInteger[i] = d;
+				else
+						c.hugeInteger[i] = d;
+				
+				resto = d/10;					
+			}
+			
+			return c;
+			
+		}
+		
+		public static HugeInteger sum(HugeInteger a, HugeInteger b, int k)
+		{
+			HugeInteger c = new HugeInteger();
+			
+			int resto = 0;
+			int d = 0;
+			int in = 0;
+			int in2 = 0;
+			
+			for (int i = a.hugeInteger.length-1; i >=0; i--)
+				{
+				
+				if(a.hugeInteger[i] != 0)
+					in = i;
+				if(b.hugeInteger[i] != 0)
+					in2 = i;
+				
+				}
+			
+			int max = Math.max(in, in2);
+			
+			for(int i = a.hugeInteger.length-1; i >= 0; i--)
+			{
+				
+				if(i <= k)
+					c.hugeInteger[i] = a.hugeInteger[i];
+				
+				if (i >= a.hugeInteger.length -k)
+				{
+					d = b.hugeInteger[i] + resto;
+					
+					if (d >= 10)
+						
+						c.hugeInteger[i] = d%10;					
+					else					
+						c.hugeInteger[i] = d;
+				}
+				
+				if(i > k && i < a.hugeInteger.length-k )
+					{
+					d = a.hugeInteger[i] +  b.hugeInteger[i] + resto;
+					
+					if (d >= 10)
+					
+						c.hugeInteger[i] = d%10;					
+					else					
+						c.hugeInteger[i] = d;
+					
+					}
+				//System.out.println("hola"+i);
+				resto = d/10;					
+			}
+			
+			return c;
+			
+		}
+		public static HugeInteger multiplication(HugeInteger a, HugeInteger b)
+		{
+			HugeInteger[] c = new HugeInteger[40];
+			HugeInteger d = new HugeInteger();
+			
+			//System.out.println("hola putas");
+			
+			for(int i = 0; i < c.length; i++)
+				c[i] = new HugeInteger();
+			
+			
+			int resto = 0;
+			
+			for(int j = 0; j < a.hugeInteger.length; j++)
+			{
+				
+				for(int i = 0; i < a.hugeInteger.length; i++)
+				{
+					int f = a.hugeInteger[i] * b.hugeInteger[i] + resto;
+				
+					if(i < a.hugeInteger.length-1)
+						if (f >= 10)
+							c[j].hugeInteger[i] = f%10;					
+						else					
+							c[j].hugeInteger[i] = f;
+					else
+							c[j].hugeInteger[i] = f;
+				
+					resto = f/10;					
+				}
+			
+			}
+			
+			for(int k = 1; k < a.hugeInteger.length; k++ )
+				d = sum(c[k-1],c[k],k);
+				
+			return d;
+			
+			
+		}
+	
+		public static void print(HugeInteger a)
+		{
+			for(int i = 0; i < a.hugeInteger.length; i++)
+				System.out.print(a.hugeInteger[i]);
+			System.out.println();
+		}
+	
+	
+	}
+
+
+
+
+
+}
+
+
+

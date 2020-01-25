@@ -1,0 +1,210 @@
+import java.security.*;
+import java.util.Scanner;
+
+
+public class main2 {
+
+	
+	private static final Scanner scan = new Scanner(System.in);
+	private static final SecureRandom ran =  new SecureRandom();
+	private static enum Stat {WON_X,WON_O,CONTINUE};
+	private static enum Player{HUMAN,COMPUTER};
+	private static Board board = new Board();
+	
+	public static void main(String[] args) {
+	
+		
+		Stat status = Stat.CONTINUE;
+		Player player;
+		
+		System.out.println("Do you want go first or second? 0:Fisrt 1:Second ");
+		int order = scan.nextInt();
+		
+		if(order == 0)
+			player = Player.HUMAN;
+		else
+			player = Player.COMPUTER;
+		
+		
+		while (status == Stat.CONTINUE)
+		{
+			makeMove(player);
+			status = check();
+			
+			
+			if(player == Player.COMPUTER)
+				player = Player.HUMAN;
+			else
+				player = Player.COMPUTER;;
+		}
+		
+		if( status == Stat.WON_O)
+			System.out.println("Congratulations, you win");
+		else
+			System.out.println("Sorry, computer wins, you are terrible");
+		
+		System.out.println();
+		board.print();
+	}
+	
+	
+	
+	private static void makeMove(Player player)
+	{
+		if (player == Player.COMPUTER )
+			{
+			System.out.println("Computer moves");
+			System.out.println();
+			int sentinel = 0;
+			
+			while(sentinel == 0)
+			{
+				int i = ran.nextInt(3);
+				int j = ran.nextInt(3);
+				
+				if(board.board[i][j] == Status.E.name)
+					{
+					board.board[i][j] = Status.X.name;
+					sentinel = 1;
+					}
+				else
+					System.out.println("The box muste be empthy, try again");
+				board.print();
+				System.out.println();
+			}
+			}
+		else
+			{
+			int sentinel = 0;
+			
+			System.out.println("player moves");
+			System.out.println();
+			board.print();
+			
+			while(sentinel == 0)
+			{
+				System.out.print("Wich box? The format is XX: ");
+				int move = scan.nextInt();
+				System.out.println();
+				
+				
+				int i = move / 10;
+				int j = move%10;
+				
+				if(board.board[i][j] == Status.E.name)
+					{
+					board.board[i][j] = Status.O.name;
+					sentinel = 1;
+					}
+				else
+					System.out.println("The box must be empthy, try again");
+			}
+		
+			}	
+		
+	}
+	
+	private static Stat check()
+	{
+		int [][] countX = new int[2][3];
+		int [][] countO = new int[2][3];
+		Stat s = Stat.CONTINUE;
+		
+		for(int i = 0; i < board.board.length; i++)
+			for(int j = 0; j < board.board.length; j++)
+				{
+				if(board.board[i][j] == "X")
+					{
+					countX[0][i]++; 
+					countX[1][j]++;
+					}
+				if(board.board[i][j] == "O")
+				{
+					countO[0][i]++; 
+					countO[1][j]++;
+					}
+				}
+		
+		for(int i = 0; i < 2; i++)
+			for(int j = 0; j < 3; j++)
+			{
+				if(countX[i][j] == 3)
+					return s.WON_X;
+				if(countO[i][j] == 3)
+					return s.WON_O;				
+			}
+	
+		int diagX = 0;
+		int diagO = 0;
+		
+		for(int i = 0; i <3; i++)
+		{
+			if(board.board[i][i] == "O")
+				diagO++;
+			if(board.board[i][i] == "X" )
+				diagX++;
+		}
+		if(diagX == 3)
+			return s.WON_X;
+		if(diagO == 3)
+			return s.WON_O;
+		
+		
+		return s;
+	}
+	
+	
+	
+	private static class Board
+	{
+		private String[][] board = new String[3][3];
+		public static int names = 1;
+		
+		public Board()
+		{
+			for(int i = 0; i < board.length; i++)
+				for(int j = 0; j < board[0].length; j++)
+					board[i][j] = Status.E.name;
+			
+		}
+		
+		private void print()
+		{
+			
+			System.out.printf("%4d%3d%3d%n", 0,1,2);
+			
+			for(int i = 0; i < board.length; i++)
+				{
+				System.out.print(i+"  ");
+				for(int j = 0; j < board[0].length; j++)
+					System.out.print(board[i][j]+"  ");
+				System.out.println();				
+				}
+			System.out.println();
+		}
+			
+	}
+	
+	private static enum Status
+	{
+		E("E"),
+		O("O"),
+		X("X");
+		
+		private final String name;
+		
+		Status(String name)
+		{
+			this.name = name;
+		}
+		
+		private String getName()
+		{
+			return name;
+		}
+		
+	}
+		
+		
+	}
+

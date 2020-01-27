@@ -1,0 +1,45 @@
+package ex_10_13;
+
+public class Square extends TwoDimensionalShape
+{
+	private final double length;
+	private final double width;
+	
+	public Square(double length, double width)
+	{
+		if(length < 0.0 || width < 0.0)
+			throw new IllegalArgumentException("Length and width mus be >= 0.0");
+		
+		this.length = length;
+		this.width = width;
+	}
+
+	public double getLength()
+	{
+		return length;
+	}
+
+	public double getWidth()
+	{
+		return width;
+	}
+
+	@Override
+	public double area()
+	{
+		return getLength()*getWidth();
+	}
+
+	@Override
+	public double volume()
+	{
+		return 0.0;
+	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("%s in particular a %s", super.toString(), "Square");
+	}
+
+}

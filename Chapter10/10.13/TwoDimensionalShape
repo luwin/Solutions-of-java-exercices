@@ -1,0 +1,10 @@
+package ex_10_13;
+
+public abstract class TwoDimensionalShape extends Shape 
+{
+	@Override
+	public String toString()
+	{
+		return String.format("The object is a two dimensional shape");
+	}
+}

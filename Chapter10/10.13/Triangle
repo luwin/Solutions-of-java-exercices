@@ -1,0 +1,45 @@
+package ex_10_13;
+
+public class Triangle extends TwoDimensionalShape
+{
+	private final double base;
+	private final double higth;
+	
+	public Triangle(double base, double higth)
+	{
+		if(base < 0.0 || higth < 0.0)
+			throw new IllegalArgumentException("Base and higth must be >= 0.0");
+		
+		this.base = base;
+		this.higth = higth;
+		
+	}
+
+	public double getBase()
+	{
+		return base;
+	}
+
+	public double getHigth()
+	{
+		return higth;
+	}
+
+	@Override
+	public double area()
+	{
+		return getBase()*getHigth()/2;
+	}
+
+	@Override
+	public double volume()
+	{
+		return 0.0;
+	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("%s in particular a %s", super.toString(), "Triangle");
+	}
+}

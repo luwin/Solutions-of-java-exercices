@@ -1,0 +1,12 @@
+package ex_10_13;
+
+public abstract class ThreeDimensionalShape extends Shape 
+{
+
+	@Override
+	public String toString()
+	{
+		return String.format("The object is a three dimensional shape");
+	}
+
+}

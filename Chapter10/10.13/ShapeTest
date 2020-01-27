@@ -1,0 +1,38 @@
+package ex_10_13;
+
+public class ShapeTest {
+
+	public static void main(String[] args) {
+	
+		Circle circle = new Circle(1.0);
+		Square square = new Square(1,1);
+		Triangle triangle = new Triangle (1,1);
+
+		Sphere sphere = new Sphere(1);
+		Cube cube = new Cube(1,1,1);
+		Tetrahedron tetrahedron = new Tetrahedron(1,1);
+		
+		Shape[] shapes = new Shape[6];
+		
+		shapes[0] = circle;
+		shapes[1] = square;
+		shapes[2] = triangle;
+		shapes[3] = sphere;
+		shapes[4] = cube;
+		shapes[5] = tetrahedron;
+		
+		for(Shape shape : shapes)
+		{
+			System.out.println(shape);
+			
+			if(shape instanceof TwoDimensionalShape)
+				System.out.println("The area is: "+shape.area());
+			else
+			{
+				System.out.println("The area is: "+shape.area());
+				System.out.println("The volume is: "+shape.volume());
+			}
+		}
+	}
+
+}

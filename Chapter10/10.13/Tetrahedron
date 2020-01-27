@@ -1,0 +1,44 @@
+package ex_10_13;
+
+public class Tetrahedron  extends ThreeDimensionalShape{
+
+	private final double faceArea;
+	private final double higth;
+	
+	public Tetrahedron(double faceArea, double higth)
+	{
+		if(faceArea < 0.0 || higth < 0.0)
+			throw new IllegalArgumentException("The face area the higth must be >= 0.0");
+		
+		this.faceArea = faceArea;
+		this.higth = higth;
+	}
+
+	public double getFaceArea()
+	{
+		return faceArea;
+	}
+
+	public double getHigth()
+	{
+		return higth;
+	}
+
+	@Override
+	public double area()
+	{
+		return 4*getFaceArea();
+	}
+
+	@Override
+	public double volume()
+	{
+		return (1.0/3*getFaceArea()*getHigth());
+	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("%s in particular a %s", super.toString(), "Tetrahedron");
+	}
+}

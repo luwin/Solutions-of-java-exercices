@@ -1,0 +1,51 @@
+package ex_10_13;
+
+public class Cube extends ThreeDimensionalShape
+{
+	private final double length;
+	private final double width;
+	private final double higth;
+	
+	public Cube(double length, double width, double higth)
+	{
+		if(length < 0.0 || width < 0.0 || higth < 0.0)
+			throw new IllegalArgumentException("Length, width and higth must be >= 0.0");
+		
+		this.length = length;
+		this.width = width;
+		this.higth = higth;
+	}
+
+	public double getLength()
+	{
+		return length;
+	}
+
+	public double getWidth()
+	{
+		return width;
+	}
+
+	public double getHigth()
+	{
+		return higth;
+	}
+	@Override
+	public double area()
+	{
+		return 4*Math.max(getLength(), getWidth())*getHigth() + 2*getHigth()*Math.min(getLength(), getWidth());
+	}
+
+	@Override
+	public double volume()
+	{
+		return getWidth()*getHigth()*getLength();
+	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("%s in particular a %s", super.toString(), "Cube");
+	}
+	
+}

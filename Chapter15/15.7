@@ -1,0 +1,88 @@
+package chapter15;
+
+import java.io.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+public class TelephoneNumber {
+
+	public static void main(String[] args)
+	{		
+		String[] numberAndLetters = new String[8];
+		numberAndLetters[0] = "2ABC";
+		numberAndLetters[1] = "3DEF";
+		numberAndLetters[2] = "4GHI";
+		numberAndLetters[3] = "5JKL";
+		numberAndLetters[4] = "6MNO";
+		numberAndLetters[5] = "7PRS";
+		numberAndLetters[6] = "8TUV";
+		numberAndLetters[7] = "9WXY";
+		
+		FileOutputStream file = null;
+		
+		try 
+		{
+			file = new FileOutputStream("data.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+				
+		String number = null;
+		
+		while (true)	
+			try
+			{
+				Scanner scan = new Scanner(System.in);
+				System.out.print("Enter a 7 digit integer number: ");	
+				number = scan.next();
+
+				for (int i = 0; i < number.length(); i++)
+				{
+					int a = Integer.parseInt(number.substring(i, i+1));
+					if (a == 1 || a == 0)
+						throw new IllegalArgumentException("The number cannot contain 0 or 1");
+				}
+				
+				if (number.length() != 7 )
+					throw new IllegalArgumentException("The number must be a seven digit integer, try again.");
+				
+				break;
+				
+			}
+			catch (IllegalArgumentException e)
+			{
+				System.err.println(e.getMessage());
+				System.out.println();
+			}
+			
+		
+		PrintStream print = new PrintStream(file);
+		int[] info = new int[8];
+		
+		for (int i = 0; i < 7; i++)
+		{
+			info[i] = Integer.parseInt(number.substring(i, i + 1));
+		}
+		
+		int count = 1;
+		for (int a = 1; a <= 3; a++)
+			for (int b = 1; b <= 3; b++)
+				for (int c = 1; c <= 3; c++)
+					for (int d = 1; d <= 3; d++)
+						for (int e = 1; e <= 3; e++)
+							for (int f = 1; f <= 3; f++)
+								for (int g = 1; g <= 3; g++)
+									{
+										print.print(numberAndLetters[info[0]-2].charAt(a));
+										print.print(numberAndLetters[info[1]-2].charAt(b));
+										print.print(numberAndLetters[info[2]-2].charAt(c));
+										print.print(numberAndLetters[info[3]-2].charAt(d));
+										print.print(numberAndLetters[info[4]-2].charAt(e));
+										print.print(numberAndLetters[info[5]-2].charAt(f));
+										print.print(numberAndLetters[info[6]-2].charAt(g));
+										print.println();
+										
+										System.out.println(count++);
+									}
+	}
+
+}

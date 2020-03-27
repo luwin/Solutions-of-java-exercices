@@ -1,0 +1,103 @@
+package chapter19.exercices;
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+
+public class BucketSort
+{
+    public static void sort(String[] data)
+    {
+        String[][] bucketData = new String[10][data.length];
+        String max = data[0];
+
+        for (int i = 1; i < data.length; i++)
+        {
+            if (Integer.parseInt(data[i]) > Integer.parseInt(max))
+                max = data[i];
+        }
+
+        for (int i = 0; i < max.length(); i++)
+        {
+            defaultValues(bucketData);
+
+            for (int j = 0; j < data.length; j++)
+            {
+                int number = 0;
+
+                if (data[j].length() < i + 1)
+                    number = 0;
+                else
+                    number = Character.getNumericValue(data[j].charAt(data[j].length() - i - 1));
+
+                int count = 0;
+
+                while (true)
+                {
+                    if (bucketData[number][count] == "*")
+                    {
+                        bucketData[number][count] = data[j];
+                        break;
+                    }
+
+                    count++;
+                }
+            }
+
+            printMatrix(bucketData);
+
+            int count = 0;
+
+            for (int j = 0; j < bucketData.length; j++)
+                for (int k = 0; k < bucketData[0].length; k++)
+                {
+
+                    if (bucketData[j][k] != "*")
+                        data[count++] = bucketData[j][k];
+                }
+
+            printMatrix(bucketData);
+        }
+
+
+    }
+
+    private static void defaultValues(String[][] data)
+    {
+        for (int j = 0; j < data.length; j++)
+            for (int k = 0; k < data[0].length; k++)
+                data[j][k] = "*";
+
+    }
+
+    private static void printMatrix(String[][] matrix)
+    {
+        for (int j = 0; j < matrix.length; j++)
+        {
+            for (int k = 0; k < matrix[0].length; k++)
+                System.out.print(matrix[j][k]+" ");
+
+            System.out.println();
+        }
+
+        System.out.println();
+        System.out.println();
+    }
+
+
+    public static void main(String[] args)
+    {
+        SecureRandom generator = new SecureRandom();
+
+        String[] data = new String[10];
+
+        for (int i = 0; i < data.length; i++)
+            data[i] = Integer.toString(10 + generator.nextInt(90));
+
+        System.out.printf("Unsorted array:%n%s%n%n",
+                Arrays.toString(data));
+        sort(data);
+
+        System.out.printf("Sorted array:%n%s%n%n",
+                Arrays.toString(data));
+    }
+}

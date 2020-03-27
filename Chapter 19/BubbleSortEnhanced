@@ -1,0 +1,55 @@
+package chapter19.exercices;
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+
+public class BubbleSortEnhanced
+{
+    public static void bubleSort(int[] data)
+    {
+        for (int i = 0; i < data.length - 1; i++)
+        {
+            int passes = 0;
+
+            for (int j = 0; j < data.length - 1 - i; j++)
+            {
+                int temporal = data[j];
+
+                if (data[j + 1] < data[j])
+                {
+                    data[j] = data[j + 1];
+                    data[j + 1] = temporal;
+                    passes++;
+                }
+            }
+
+            if (passes == 0)
+            {
+                System.out.println("Passes made: "+i);
+                break;
+            }
+            passes = 0;
+
+            if (i == 8)
+                System.out.println("Passes made: 9");
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        SecureRandom generator = new SecureRandom();
+
+        int[] data = new int[10];
+
+        for (int i = 0; i < data.length; i++)
+            data[i] = 10 + generator.nextInt(90);
+
+        System.out.printf("Unsorted array:%n%s%n%n",
+                Arrays.toString(data));
+        bubleSort(data);
+
+        System.out.printf("Sorted array:%n%s%n%n",
+                Arrays.toString(data));
+    }
+
+}

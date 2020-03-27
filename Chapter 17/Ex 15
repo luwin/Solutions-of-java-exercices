@@ -1,0 +1,71 @@
+package chapter18.exercices;
+
+import javax.swing.*;
+
+public class Ex15
+{
+    private static String[][] board = new String[8][8];
+
+    public static void main(String[] args)
+    {
+        for (int i = 0; i < board.length; i++)
+        {
+            for (int j = 0; j < board[0].length; j++)
+                board[i][j] = "-";
+        }
+
+        for (int i = 0; i < board.length; i++) {
+
+            System.out.println("QUEEN NUMBER: "+i);
+
+            int[] pos = recursion(0, 0);
+            updateBoard(pos);
+            printBoard();
+            System.out.printf("%n%n");
+        }
+
+    }
+
+    public static int[] recursion(int row, int column)
+    {
+        System.out.println(row+" "+column);
+
+            if (board[row][column] == "-")
+                return new int[] {row, column};
+            else
+                if (row == 7)
+                    return recursion(0 , column + 1);
+                else
+                    return recursion(row + 1, column);
+    }
+
+    public static void updateBoard(int[] position)
+    {
+        for (int i = 0; i < board.length; i++) {
+            board[position[0]][i] = "*";
+        }
+
+        for (int i = 0; i < board.length; i++) {
+            board[i][position[1]] = "*";
+        }
+
+        int pos = Math.abs(position[0] - position[1] );
+
+        for (int i = 0; i < board.length - pos; i++) {
+            board[pos + i][i] = "*";
+        }
+    }
+
+    public static void printBoard()
+    {
+        for (int i = 0; i < board.length; i++)
+        {
+            for (int j = 0; j < board.length; j++)
+                System.out.print(board[i][j]+" ");
+
+            System.out.println();
+        }
+    }
+
+
+}

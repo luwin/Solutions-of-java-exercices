@@ -1,0 +1,22 @@
+package chapter18.exercices;
+
+public class Ex16
+{
+    public static void main(String[] args)
+    {
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        String results = recursive(array, array.length - 1);
+        System.out.println(results);
+    }
+
+    public static String recursive(int[] array, int x)
+    {
+        if (x >= 0)
+            return String.format(
+                    "%s%d ", recursive(array, x - 1), array[x]
+            );
+        else
+            return "";
+
+    }
+}

@@ -1,0 +1,90 @@
+package chapter19.exercices;
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class QuickSort
+{
+    public static void quickSort(int[] data, int startIndex, int endIndex)
+    {
+        if(endIndex > startIndex)
+        {
+            int index = quickSortHelper(data, startIndex, endIndex);
+
+            if (index != -1)
+            {
+                quickSort(data, 0, index - 1);
+                quickSort(data, index + 1, data.length - 1);
+            }
+
+        }
+        else
+            return;
+    }
+
+
+    public static int quickSortHelper(int[] data, int startIndex, int endIndex)
+    {
+        int temporal = data[startIndex];
+        int index  = -1;
+
+        outerloop:
+        while (true)
+        {
+
+            for (int i = endIndex; i >= startIndex ; i--)
+            {
+              if (data[startIndex] > data[i])
+              {
+                  System.out.println("Swap: "+data[startIndex] +" for "+data[i]);
+                  data[startIndex] = data[i];
+                  data[i] = temporal;
+                  startIndex++;
+                  endIndex = i;
+                  index = endIndex;
+                  break;
+              }
+
+               if(i == startIndex) break outerloop;
+            }
+
+            for (int i = startIndex; i <= endIndex ; i++)
+            {
+                if (data[i] > data[endIndex])
+                {
+                    System.out.println("Swap: "+data[endIndex]+ " for "+data[i]);
+                    data[endIndex] = data[i];
+                    data[i] = temporal;
+                    endIndex--;
+                    startIndex = i;
+                    index = startIndex;
+                    break;
+                }
+
+                if (i == endIndex) break outerloop;
+            }
+        }
+
+        System.out.println(Arrays.toString(data));
+        return index;
+    }
+
+    public static void main(String[] args)
+    {
+        SecureRandom generator = new SecureRandom();
+
+        int[] data = new int[10];
+
+        for (int i = 0; i < data.length; i++)
+            data[i] = 10 + generator.nextInt(90);
+
+
+        System.out.printf("Unsorted array:%n%s%n%n",
+                Arrays.toString(data));
+        quickSort(data, 0, data.length - 1);
+
+        System.out.printf("Sorted array:%n%s%n%n",
+                Arrays.toString(data));
+    }
+}

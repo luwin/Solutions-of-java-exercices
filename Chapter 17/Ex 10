@@ -1,0 +1,29 @@
+package chapter18.exercices;
+
+import java.math.BigInteger;
+
+public class Ex10
+{
+    public static void main(String[] args)
+    {
+        String identation = "";
+
+        factorial(BigInteger.valueOf(10), identation);
+    }
+
+    public static BigInteger factorial(BigInteger number, String identation)
+    {
+        if (number.compareTo(BigInteger.ONE) <= 0)
+            {
+                System.out.println(identation+number);
+                return BigInteger.ONE;
+            }
+        else
+        {
+            System.out.println(identation+number);
+            identation += " ";
+            return number.multiply(factorial(number.subtract(BigInteger.ONE), identation));
+        }
+    }
+
+}

@@ -1,0 +1,19 @@
+package chapter18.exercices;
+
+public class Ex18
+{
+    public static void main(String[] args)
+    {
+        int[] array = {-123, 2, 3, 4, 5, -134, 7, 8, 9, -127};
+        System.out.println(min(array, 0));
+    }
+
+    public static int min(int[] array, int x)
+    {
+        if (x < array.length - 1)
+            return Math.min(min(array, x + 1), array[x]);
+        else
+            return Math.min(array[array.length - 1], array[array.length - 2]);
+    }
+
+}

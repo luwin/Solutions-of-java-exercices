@@ -1,0 +1,26 @@
+package chapter18.exercices;
+
+import java.util.Scanner;
+public class Ex11
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Enter two numbers to calculate its mcd");
+        System.out.print("x: ");
+        int x = scan.nextInt();
+        System.out.printf("y: ");
+        int y = scan.nextInt();
+        System.out.println("The mdc of "+x+" and "+y+" is: "+gcd(x, y));
+    }
+
+    public static int gcd(int x, int y)
+    {
+        if (y == 0)
+            return  x;
+        else
+            return gcd(y, x % y);
+    }
+
+}

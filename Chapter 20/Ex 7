@@ -1,0 +1,22 @@
+package chapter20.exercices;
+
+public class Ex7
+{
+    public static void main(String[] args)
+    {
+        Object object = "hola";
+        Integer integer = 3;
+
+        System.out.println(equals(object, integer));
+    }
+
+    public static <T , Y> Boolean equals(T x, Y y)
+    {
+        if (x.equals(y))
+            return true;
+        else
+            return false;
+    }
+
+
+}

@@ -1,4 +1,4 @@
-vpackage chapter19.exercices;
+package chapter19.exercices;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -10,8 +10,10 @@ public class QuickSort
     {
         if(endIndex > startIndex)
         {
+            int temp = data[startIndex];
+            System.out.println("Finding place for: "+temp);
             int index = quickSortHelper(data, startIndex, endIndex);
-            System.out.println("Element "+data[startIndex]+" placed at position: "+index);
+            System.out.printf("Element %d placed at position: %d%n%n", temp, index);
 
             quickSort(data, startIndex, index - 1);
             quickSort(data, index + 1, endIndex);
@@ -35,18 +37,18 @@ public class QuickSort
 
             for (int i = endIndex; i >= 0 ; i--)
             {
-              if (temporal > data[i])
-              {
-                  System.out.println("Swap: "+data[startIndex] +" for "+data[i]);
-                  data[startIndex] = data[i];
-                  data[i] = temporal;
-                  System.out.println(Arrays.toString(data));
-                  endIndex = i;
-                  index = endIndex;
-                  break;
-              }
+                if (temporal > data[i])
+                {
+                    System.out.println("Swap: "+data[startIndex] +" for "+data[i]);
+                    data[startIndex] = data[i];
+                    data[i] = temporal;
+                    System.out.println(Arrays.toString(data));
+                    endIndex = i;
+                    index = endIndex;
+                    break;
+                }
 
-               if(i == startIndex) break outerloop;
+                if(i == startIndex) break outerloop;
             }
 
             startIndex++;
@@ -69,7 +71,7 @@ public class QuickSort
 
             endIndex--;
         }
-        
+
         return index;
     }
 

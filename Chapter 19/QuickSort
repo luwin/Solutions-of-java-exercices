@@ -1,4 +1,4 @@
-package chapter19.exercices;
+vpackage chapter19.exercices;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -11,13 +11,10 @@ public class QuickSort
         if(endIndex > startIndex)
         {
             int index = quickSortHelper(data, startIndex, endIndex);
+            System.out.println("Element "+data[startIndex]+" placed at position: "+index);
 
-            if (index != -1)
-            {
-                quickSort(data, 0, index - 1);
-                quickSort(data, index + 1, data.length - 1);
-            }
-
+            quickSort(data, startIndex, index - 1);
+            quickSort(data, index + 1, endIndex);
         }
         else
             return;
@@ -26,21 +23,24 @@ public class QuickSort
 
     public static int quickSortHelper(int[] data, int startIndex, int endIndex)
     {
+
+        System.out.println("Start index: "+startIndex+" , "+"End index: "+endIndex);
         int temporal = data[startIndex];
-        int index  = -1;
+        int index  = startIndex;
+
 
         outerloop:
         while (true)
         {
 
-            for (int i = endIndex; i >= startIndex ; i--)
+            for (int i = endIndex; i >= 0 ; i--)
             {
-              if (data[startIndex] > data[i])
+              if (temporal > data[i])
               {
                   System.out.println("Swap: "+data[startIndex] +" for "+data[i]);
                   data[startIndex] = data[i];
                   data[i] = temporal;
-                  startIndex++;
+                  System.out.println(Arrays.toString(data));
                   endIndex = i;
                   index = endIndex;
                   break;
@@ -49,14 +49,16 @@ public class QuickSort
                if(i == startIndex) break outerloop;
             }
 
-            for (int i = startIndex; i <= endIndex ; i++)
+            startIndex++;
+
+            for (int i = startIndex; i <= data.length - 1 ; i++)
             {
-                if (data[i] > data[endIndex])
+                if (data[i] > temporal)
                 {
                     System.out.println("Swap: "+data[endIndex]+ " for "+data[i]);
                     data[endIndex] = data[i];
                     data[i] = temporal;
-                    endIndex--;
+                    System.out.println(Arrays.toString(data));
                     startIndex = i;
                     index = startIndex;
                     break;
@@ -64,9 +66,10 @@ public class QuickSort
 
                 if (i == endIndex) break outerloop;
             }
-        }
 
-        System.out.println(Arrays.toString(data));
+            endIndex--;
+        }
+        
         return index;
     }
 
